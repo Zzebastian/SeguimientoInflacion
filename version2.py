@@ -2,7 +2,7 @@ import os, requests, time
 from bs4 import BeautifulSoup
 import diccionario
 
-import pickle
+
 
 os.system('cls')
 
@@ -18,6 +18,7 @@ def obtenerSopa(web):
 sopa = obtenerSopa(web)
 
 # Seccion copiar sopa a archivo y volver a traer como dato
+import pickle
 # with open('SeguimientoInflacion/sopa.pickle', 'wb') as f:
 #     pickle.dump(sopa, f)
 # 

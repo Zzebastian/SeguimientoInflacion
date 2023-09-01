@@ -1,12 +1,14 @@
-url = 'https://supermercado.laanonimaonline.com/'
-clave = 'buscar?pag=1&clave='
+# url = 'https://supermercado.laanonimaonline.com/buscar?pag='
+# clave = '&clave='
 
 busqueda = {
-    'Yerba': url + clave + 'Yerba+Mate+Suave+Playadito',
-    # '' : url + clave + ''
+    'Yerba': 'Playadito',
+    # '' : ''
     }
 
 articulo = {
-    'Yerba': '/almacen/infusiones/yerbas/yerba-mate-c-palo-suave-playadito-x-1-kg',
+    'Yerba': 'Yerba Mate c/Palo Suave Playadito x 1 Kg.'
+    
     # '' : ''
     }
+
