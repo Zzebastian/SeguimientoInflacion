@@ -1,49 +1,63 @@
 #  Nota: Importante instalar el paquete "schedule"
-import os, requests, time
+import os, requests, time, json
 from bs4 import BeautifulSoup
 import diccionario
 os.system('cls')
 url = 'https://supermercado.laanonimaonline.com/buscar?pag='
 clave = '&clave='
+PreciosArticulos = {}
 
-i=1
+# def obtenerDatosJSON():
+#     # Obtiene los datos guardados en la base de datos, o bien, en caso de no tener, crea una nueva.
+#     try:
+#         with open("Precios.json") as file:
+#             BdD = json.load(file)
+#     except:
+#         BdD ={}
 
-web = url+str(i)+clave+diccionario.busqueda['Yerba']
-print(web)
-# def BusquedaWeb(web):
-# respuesta = requests.get(web)
-# html = respuesta.text
-# sopa =BeautifulSoup(html, 'html.parser')
-
-# Seccion copiar sopa a archivo y volver a traer como dato
-import pickle
-# with open('SeguimientoInflacion/sopa.pickle', 'wb') as f:
-#     pickle.dump(sopa, f)
-# 
-with open('SeguimientoInflacion/sopa.pickle', 'rb') as f:
-    sopa = pickle.load(f)
-print(len(sopa))
-# Fin de sección.
-
-elemento= sopa.find_all('div', {"class" : "producto item text_center centrar_img fijar cuadro clearfix"})
-print(len(elemento))
-for el in elemento:
-  dato = el.find("div",attrs={"class":"titulo02 aux1 titulo_puntos clearfix"}).a.text
-  if dato == diccionario.articulo['Yerba']:
-    precio = el.find("div",attrs={"class":"precio semibold aux1"}).text
-    break
-
-
-
-
-
-# def ObtenerPrecios(descanso):
-# #   El descanso se utiliza
-#   for producto in diccionario.articulo:
-#     print(diccionario.articulo[producto])
-#     precio = BusquedaWeb(diccionario.articulo[producto])
-#     print(precio)
-#     time.sleep(descanso)
+#     return BdD
 # #
+# def guardarDatosJSON(BdD):
+#   with open("Precios.json", "w") as file:
+#     json.dump(BdD, file)
+# #
+# def agregarDatos():
+#    ID = 10 # Fecha en AA-MM-DD ############
 
-# ObtenerPrecios(2)
+#
+def BusquedaWeb(web):
+    respuesta = requests.get(web)
+    html = respuesta.text
+    sopa =BeautifulSoup(html, 'html.parser')
+    return sopa
+#
+
+# preciosBdD = obtenerDatosJSON()
+
+
+for art in diccionario.articulo:
+  i=0
+  conf = True
+  while conf == True:
+    i+=1
+    web = url+str(i)+clave+diccionario.busqueda[art]
+    print(web) #
+    sopa = BusquedaWeb(web)
+    elemento= sopa.find_all('div', {"class" : "producto item text_center centrar_img fijar cuadro clearfix"})
+        
+    for el in elemento:
+      dato = el.find("div",attrs={"class":"titulo02 aux1 titulo_puntos clearfix"}).a.text
+      if dato == diccionario.articulo[art]:
+        precio = el.find("div",attrs={"class":"precio semibold aux1"}).text
+        PreciosArticulos[art] = precio
+        conf = False
+        break
+  # Se espera 1 segundo para no sobrecargar el servidor
+  time.sleep(1)
+  # 
+
+print(PreciosArticulos)
+for el in PreciosArticulos:
+  print(el)
+  print(PreciosArticulos[el])
+  print('')
