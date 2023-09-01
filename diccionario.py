@@ -31,15 +31,23 @@ articulo = {
     # '' : '',
     }
 
+ponderacion = {
+    'Yerba': 1,
+    'Arroz' : 2.5,
+    'Azúcar' : 1,
+    'Carne' : 15,
+    'Huevos' : 36/30,
+    'Leche' : 12,
+    'Pan' : 10,
+    'Papas' : 10,
+    'Pastas' : 2/0.5,
+    'Verduras' : 20,
+    'Frutas' : 15,
+               }
 
-# Arroz	2,5 kg
-# Azúcar	1 kg
-# Carne	15 kg
-# Huevos	36 unidades
-# Leche	12 litros
-# Pan	10 kg
-# Papas	10 kg
-# Pastas	2 kg
-# Verduras	20 kg
-# Frutas	15 kg
+
+mensajes = {'Ya realizado': 'La Busqueda de datos ha sido previamente realizada el día de hoy',
+            'exito': '\nEl proceso de carga de datos ha sido realizado exitosamente'
+            }
+
 

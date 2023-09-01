@@ -1,29 +1,27 @@
-#  Nota: Importante instalar el paquete "schedule"
+# -*- coding: utf-8 -*-
 import os, requests, time, json
+from datetime import date
 from bs4 import BeautifulSoup
 import diccionario
+
 os.system('cls')
 url = 'https://supermercado.laanonimaonline.com/buscar?pag='
 clave = '&clave='
-PreciosArticulos = {}
+path = "SeguimientoInflacion/Precios.json"
 
-# def obtenerDatosJSON():
-#     # Obtiene los datos guardados en la base de datos, o bien, en caso de no tener, crea una nueva.
-#     try:
-#         with open("Precios.json") as file:
-#             BdD = json.load(file)
-#     except:
-#         BdD ={}
+def obtenerDatosJSON():
+    # Obtiene los datos guardados en la base de datos, o bien, en caso de no tener, crea una nueva.
+    try:
+        with open(path, encoding="utf-8") as file:
+            BdD = json.load(file)
+    except:
+        BdD ={}
 
-#     return BdD
-# #
-# def guardarDatosJSON(BdD):
-#   with open("Precios.json", "w") as file:
-#     json.dump(BdD, file)
-# #
-# def agregarDatos():
-#    ID = 10 # Fecha en AA-MM-DD ############
-
+    return BdD
+#
+def guardarDatosJSON(BdD):
+  with open(path, "w", encoding="utf-8") as file:
+    json.dump(BdD, file)
 #
 def BusquedaWeb(web):
     respuesta = requests.get(web)
@@ -31,17 +29,12 @@ def BusquedaWeb(web):
     sopa =BeautifulSoup(html, 'html.parser')
     return sopa
 #
-
-# preciosBdD = obtenerDatosJSON()
-
-
-for art in diccionario.articulo:
+def ObtenerPrecio(art):
   i=0
   conf = True
   while conf == True:
     i+=1
     web = url+str(i)+clave+diccionario.busqueda[art]
-    print(web) #
     sopa = BusquedaWeb(web)
     elemento= sopa.find_all('div', {"class" : "producto item text_center centrar_img fijar cuadro clearfix"})
         
@@ -49,15 +42,30 @@ for art in diccionario.articulo:
       dato = el.find("div",attrs={"class":"titulo02 aux1 titulo_puntos clearfix"}).a.text
       if dato == diccionario.articulo[art]:
         precio = el.find("div",attrs={"class":"precio semibold aux1"}).text
-        PreciosArticulos[art] = precio
+        
         conf = False
         break
-  # Se espera 1 segundo para no sobrecargar el servidor
-  time.sleep(1)
-  # 
+  return precio
+#
+def CrearFilaPreciosHoy():
+  PreciosArticulos = {}
+  for art in diccionario.articulo:
+    PreciosArticulos[art] = ObtenerPrecio(art)
+    # Se espera 0.1 segundos para no sobrecargar el servidor
+    print('#', sep=' ', end='', flush=True)
+    time.sleep(0.1)
+  return PreciosArticulos
+#
 
-print(PreciosArticulos)
-for el in PreciosArticulos:
-  print(el)
-  print(PreciosArticulos[el])
-  print('')
+ID = str(date.today())
+PreciosBdD = obtenerDatosJSON()
+if ID in PreciosBdD.keys():
+  print(diccionario.mensajes['Ya realizado'])
+else:
+  PreciosArticulos = CrearFilaPreciosHoy()
+  PreciosBdD[ID] = PreciosArticulos
+  guardarDatosJSON(PreciosBdD)
+  print(diccionario.mensajes['exito'])
+  
+
+   

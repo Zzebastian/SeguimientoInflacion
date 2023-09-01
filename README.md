@@ -3,19 +3,21 @@ Este proyecto intentará recopilar datos sobre la inflación en argentina, a tra
 <p></p>
 
 ## Tareas
-```
+
 - [x] Elegir el Sitio Web para el estudio.
 - [x] Diseñar el Scraping del Sitio Web.
 - [x] Definir sistema de almacenamiento de datos.
-- [] Crear el sistea de almacenamiento de datos.
+- [x] Crear el sistea de almacenamiento de datos.
 - [x] Elegir la canasta de productos.
-- [] Ponderar los mismos para generar el índice.
-- [] Plantear la utilidad de una interfaz gráfica.
+- [x] Ponderar los mismos para generar el índice.
+- [ ] Plantear la utilidad de una interfaz gráfica.
 - [x] Definir intervalo de obtención de datos.
-- [] Plantear la utilidad de un sitio web.
-```
+- [ ] Plantear la utilidad de un sitio web.
+
 
 ## Notas importantes de cada tarea
+- Hasta obtener datos suficientes, se pausa el proyecto
+
 - Los datos se almacenan en JSON y se obtienen diariamente.
 
 - El commit ad2723fc417f7307ea93251a2dac97d9fc29e7ad "Scraping Solucionado, crédito en Readme.md" debe su crédito a la usuaria <a href="https://github.com/laaledesiempre"> laaledesiempre</a>
