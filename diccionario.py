@@ -25,7 +25,7 @@ articulo = {
     'Leche': 'Leche Entera UP La Serenísima con Vit A y D Sachet x 1 Lt.',
     'Pan': 'Pan Felipe (Kg)',
     'Papas': 'Papa Granel (Kg)',
-    'Pastas': 'Fideos Tirabuzón La Anónima x 500 g.',
+    # 'Pastas': 'Fideos Tirabuzón La Anónima x 500 g.',
     'Verduras': 'Tomate Perita (Kg)',
     'Frutas': 'Manzana Red Elegida (Kg)',
     # '' : '',

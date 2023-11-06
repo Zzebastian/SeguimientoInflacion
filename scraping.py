@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-import os, requests, time, json
+import requests, time, json
 from datetime import date
 from bs4 import BeautifulSoup
 import diccionario
 
-os.system('cls')
+# os.system('cls')
 url = 'https://supermercado.laanonimaonline.com/buscar?pag='
 clave = '&clave='
-path = "SeguimientoInflacion/Precios.json"
+path = "Precios.json"
 
 def obtenerDatosJSON():
     # Obtiene los datos guardados en la base de datos, o bien, en caso de no tener, crea una nueva.
@@ -49,10 +49,12 @@ def ObtenerPrecio(art):
 #
 def CrearFilaPreciosHoy():
   PreciosArticulos = {}
+  # Con este lazo obtengo los artículos a revisar
   for art in diccionario.articulo:
+    print(art)
     PreciosArticulos[art] = ObtenerPrecio(art)
     # Se espera 0.1 segundos para no sobrecargar el servidor
-    print('#', sep=' ', end='', flush=True)
+    # print('#', sep=' ', end='', flush=True)
     time.sleep(0.1)
   return PreciosArticulos
 #
@@ -66,6 +68,3 @@ else:
   PreciosBdD[ID] = PreciosArticulos
   guardarDatosJSON(PreciosBdD)
   print(diccionario.mensajes['exito'])
-  
-
-   
